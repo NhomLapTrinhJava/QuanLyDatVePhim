@@ -110,7 +110,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Th&#xf4;ng Tin &#x110;&#x1eb7;t Phim">
+            <TitledBorder title="Th&#xf4;ng Tin &#x110;&#x1eb7;t V&#xe9;">
               <Font PropertyName="font" name="Times New Roman" size="18" style="1"/>
               <Color PropertyName="color" blue="ff" green="66" red="0" type="rgb"/>
             </TitledBorder>
@@ -273,7 +273,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="&#x110;&#x1eb7;t Phim">
+            <TitledBorder title="&#x110;&#x1eb7;t V&#xe9;">
               <Font PropertyName="font" name="Times New Roman" size="18" style="1"/>
               <Color PropertyName="color" blue="ff" green="66" red="0" type="rgb"/>
             </TitledBorder>
@@ -402,7 +402,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="313" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="325" max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -424,7 +424,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; &#x110;&#x1eb6;T PHIM"/>
+            <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; &#x110;&#x1eb6;T V&#xc9;"/>
           </Properties>
         </Component>
       </SubComponents>
