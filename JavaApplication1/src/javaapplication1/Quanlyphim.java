@@ -4,7 +4,19 @@
  * and open the template in the editor.
  */
 package javaapplication1;
-
+import DAO.PhimDAO;
+import DAO.RapDAO;
+import DTO.PhimDTO;
+import DTO.RapDTO;
+import java.awt.FlowLayout;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javaapplication1.frmthemloaiphim;
 /**
  *
  * @author abcd
@@ -16,8 +28,40 @@ public class Quanlyphim extends javax.swing.JFrame {
      */
     public Quanlyphim() {
         initComponents();
+        laydanhsachrapphim();
+        laydanhsachphim();
     }
-
+    public void laydanhsachrapphim()
+    {
+        try {
+            RapDAO rap=new RapDAO();
+            List<RapDTO> list=rap.laydanhrapphim();
+            for(int i=0;i<list.size();i++)
+            {
+                cbb_rap.addItem(list.get(i).getMARAP());
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    public void laydanhsachphim()
+    {
+         try {
+            PhimDAO phim=new PhimDAO();
+            List<PhimDTO> list=phim.laydanhsachphim();
+             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            
+            for(int i=0;i<list.size();i++)
+            {
+              model.addRow(new Object[]{list.get(i).getMAPHIM(),list.get(i).getTENPHIM(),list.get(i).getNAMSX(),list.get(i).getHANGPHIM(),list.get(i).getTHOILUONG(),list.get(i).getMOTA()});
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,15 +75,15 @@ public class Quanlyphim extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        txt_maphim = new javax.swing.JTextField();
+        txt_tenphim = new javax.swing.JTextField();
+        cbb_nsx = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        txt_hangphim = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        txt_thoiluong = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        txt_mota = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -49,7 +93,7 @@ public class Quanlyphim extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbb_rap = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
 
@@ -66,13 +110,13 @@ public class Quanlyphim extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setText("Năm Sản Xuất");
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txt_tenphim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                txt_tenphimActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbb_nsx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1990", "1991", "1992", "1993", "1994", "1995" }));
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel11.setText("Hãng Phim");
@@ -98,15 +142,15 @@ public class Quanlyphim extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField10)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txt_tenphim)
+                    .addComponent(txt_hangphim)
+                    .addComponent(txt_mota, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbb_nsx, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_maphim, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField11))
+                    .addComponent(txt_thoiluong))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -114,31 +158,31 @@ public class Quanlyphim extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(txt_maphim, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_tenphim, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jLabel10))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbb_nsx, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_hangphim, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_thoiluong, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField12)
+                        .addComponent(txt_mota)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
@@ -164,19 +208,16 @@ public class Quanlyphim extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Phim", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Mã Phim", "Tên Phim", "Năm Sản Xuất", "Hãng Phim", "Thời Lượng", "Mô Tả"
@@ -186,15 +227,35 @@ public class Quanlyphim extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton1.setText("Thêm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton2.setText("Xóa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton3.setText("Cập Nhật");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton5.setText("Thêm Loại Phim");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -203,7 +264,7 @@ public class Quanlyphim extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,15 +272,15 @@ public class Quanlyphim extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                        .addComponent(jButton5)
+                        .addGap(0, 93, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -228,13 +289,16 @@ public class Quanlyphim extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel2.setText("Rạp");
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton4.setText("Xem");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -246,13 +310,13 @@ public class Quanlyphim extends javax.swing.JFrame {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(48, 48, 48)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbb_rap, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 27, Short.MAX_VALUE))
@@ -261,12 +325,12 @@ public class Quanlyphim extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbb_rap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -278,9 +342,107 @@ public class Quanlyphim extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txt_tenphimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tenphimActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txt_tenphimActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+
+            
+            PhimDTO pm=new PhimDTO();
+            pm.setMAPHIM(txt_maphim.getText().toString());
+            pm.setTENPHIM(txt_tenphim.getText().toString());
+            pm.setNAMSX(Integer.parseInt(cbb_nsx.getSelectedItem().toString()));
+            pm.setHANGPHIM(txt_hangphim.getText().toString());
+            pm.setTHOILUONG(Integer.parseInt(txt_thoiluong.getText().toString()));
+            pm.setMOTA(txt_mota.getText().toString());
+            PhimDAO pmdao=new PhimDAO();
+            pmdao.themmotphim(pm);
+            JOptionPane.showMessageDialog(null, "Lưu thành công ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+             
+              laydanhsachphim();
+               jTable1.updateUI();
+            
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "thêm thất bại đã có lỗi xảy ra ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here
+     RapDTO rap=new RapDTO();
+     rap.setMARAP(cbb_rap.getSelectedItem().toString());
+      try {
+            PhimDAO phim=new PhimDAO();
+            List<PhimDTO> list=phim.laydanhsachphimrap(rap);
+             DefaultTableModel model1 = (DefaultTableModel) jTable1.getModel();
+            
+            for(int i=0;i<list.size();i++)
+            {
+              model1.addRow(new Object[]{list.get(i).getMAPHIM(),list.get(i).getTENPHIM(),list.get(i).getNAMSX(),list.get(i).getHANGPHIM(),list.get(i).getTHOILUONG(),list.get(i).getMOTA()});
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            // TODO add your handling code here:
+            
+            PhimDTO phim =new PhimDTO();
+            phim.setMAPHIM((String)(jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+            
+            PhimDAO phimdao=new PhimDAO();
+            phimdao.xoaphim(phim);
+             JOptionPane.showMessageDialog(null, "xoa thanh cong ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            // TODO add your handling code here:
+            PhimDTO phim =new PhimDTO();
+            PhimDAO phimdao=new PhimDAO();
+            phim.setMAPHIM((jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+            phim.setTENPHIM((jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString()));
+            phim.setNAMSX(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString()));
+            phim.setHANGPHIM((jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString()));
+            phim.setTHOILUONG(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString()));
+            phim.setMOTA((jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString()));
+            phimdao.capnhatphim(phim);
+            System.out.print((jTable1.getValueAt(jTable1.getSelectedRow(), 0)));
+            System.out.print((jTable1.getValueAt(jTable1.getSelectedRow(), 1)));
+            System.out.print((jTable1.getValueAt(jTable1.getSelectedRow(), 2)));
+            System.out.print((jTable1.getValueAt(jTable1.getSelectedRow(), 3)));
+             System.out.print((jTable1.getValueAt(jTable1.getSelectedRow(), 4)));
+             System.out.print((jTable1.getValueAt(jTable1.getSelectedRow(), 5)));
+              JOptionPane.showMessageDialog(null, "cap nhat thanh cong ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+       frmthemloaiphim frm=new frmthemloaiphim();
+       frm.setVisible(true);
+     
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,13 +480,13 @@ public class Quanlyphim extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbb_nsx;
+    private javax.swing.JComboBox<String> cbb_rap;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -338,10 +500,10 @@ public class Quanlyphim extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField txt_hangphim;
+    private javax.swing.JTextField txt_maphim;
+    private javax.swing.JTextField txt_mota;
+    private javax.swing.JTextField txt_tenphim;
+    private javax.swing.JTextField txt_thoiluong;
     // End of variables declaration//GEN-END:variables
 }
