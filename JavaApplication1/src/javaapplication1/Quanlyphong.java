@@ -58,7 +58,7 @@ public class Quanlyphong extends javax.swing.JFrame {
       public void laydanhsachphongchieu()
     {
          try {
-             grvDanhSachPhong.removeAll();
+            xoadanhsachphongchieu();
             PhongChieuDAO pc=new PhongChieuDAO();
             List<PhongChieuDTO> list= pc.laydanhsachPhongChieu();
          
@@ -67,6 +67,26 @@ public class Quanlyphong extends javax.swing.JFrame {
             for(int i=0;i<list.size();i++)
             {
               model.addRow(new Object[]{list.get(i).getMAPC(),list.get(i).getSoGhe(),list.get(i).getMOTA(),list.get(i).getTinhTrang(),list.get(i).getMARAP()});
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+      
+      
+      public void xoadanhsachphongchieu()
+    {
+         try {
+            
+            PhongChieuDAO pc=new PhongChieuDAO();
+            List<PhongChieuDTO> list= pc.laydanhsachPhongChieu();
+         
+             DefaultTableModel model = (DefaultTableModel) grvDanhSachPhong.getModel();
+            
+            for(int i=0;i<model.getRowCount();i++)
+            {
+               model.removeRow(i);
             }
             
         } catch (ClassNotFoundException ex) {
@@ -348,7 +368,7 @@ public class Quanlyphong extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Lưu thành công ",
                   "Title", JOptionPane.WARNING_MESSAGE);
                
-              grvDanhSachPhong.removeAll();
+             
           
               laydanhsachphongchieu();
              
@@ -379,11 +399,11 @@ public class Quanlyphong extends javax.swing.JFrame {
              pc.setMAPC(txtMaPhong.getText());
             pc.setMARAP(cboMaRap.getSelectedItem().toString());
             pc.setMOTA(txtMoTa.getText());
-            pc.setSoGhe(Integer.parseInt(txtSoGhe.getText()) );
+            pc.setSoGhe(Integer.parseInt(txtSoGhe.getText()));
             pc.setTINHTRANG(cboTinhTrang.getSelectedItem().toString());
-          
+           
             pcdao.capnhatPhongChieu(pc);
-         
+            laydanhsachphongchieu();
             
               JOptionPane.showMessageDialog(null, "cap nhat thanh cong ",
                   "Title", JOptionPane.WARNING_MESSAGE);
@@ -403,6 +423,7 @@ public class Quanlyphong extends javax.swing.JFrame {
             
             PhongChieuDAO pcdao=new PhongChieuDAO();
             pcdao.xoaPhongChieu(pc);
+            laydanhsachphongchieu();
              JOptionPane.showMessageDialog(null, "xoa thanh cong ",
                   "Title", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException ex) {
@@ -417,12 +438,12 @@ public class Quanlyphong extends javax.swing.JFrame {
 
     private void grvDanhSachPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grvDanhSachPhongMouseClicked
         // TODO add your handling code here:
-        System.out.println("n");
+       
           txtMaPhong.setText((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 0).toString()));
             txtSoGhe.setText((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 1).toString()));
             txtMoTa.setText((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 2).toString()));
-            cboTinhTrang.setName((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 3).toString()));
-            cboMaRap.setName((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 4).toString()));
+            cboTinhTrang.setSelectedItem((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 3).toString()));
+            cboMaRap.setSelectedItem((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 4).toString()));
     }//GEN-LAST:event_grvDanhSachPhongMouseClicked
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed

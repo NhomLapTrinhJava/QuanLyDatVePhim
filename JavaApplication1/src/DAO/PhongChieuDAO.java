@@ -90,7 +90,7 @@ public class PhongChieuDAO {
         } catch (SQLException ex) {
            System.out.print("loi khong the thuc hien truy van ");
         }
-         System.out.print("\n Danh sach Hoc Sinh");
+         System.out.print("\n Danh sach phong chieu");
         try {
           
             while(rs.next())
@@ -108,7 +108,7 @@ public class PhongChieuDAO {
                
             }
         } catch (SQLException ex) {
-            System.out.print("loi khong the khoi tao hoc sinh ");
+            System.out.print("loi khong the khoi tao  ");
             
         }
          
@@ -136,7 +136,7 @@ public class PhongChieuDAO {
              
         }
         try {
-            String sql="DELETE PHONGCHIEU PC WHERE PC.MAPC= ?";
+            String sql="DELETE PHONGCHIEU  WHERE MAPC= ?";
             PreparedStatement ps=a.prepareStatement(sql);
            ps.setString(1,pc.getMAPC() );
            ps.executeUpdate();
@@ -167,12 +167,13 @@ public class PhongChieuDAO {
              
         }
         try {
-            String sql="UPDATE PHONGCHIEU SET MOTA=N'?',TINHTRANG=N'?',MARAP=?,SOGHE=? WHERE MAPC =?";
+            String sql="UPDATE PHONGCHIEU SET MOTA=?,TINHTRANG=?,MARAP=?,SOGHE=? WHERE MAPC =?";
             PreparedStatement ps=a.prepareStatement(sql);
            ps.setString(1,pc.getMOTA());
            ps.setString(2, pc.getTinhTrang());
            ps.setString(3, pc.getMARAP());
-           ps.setInt(4, pc.getSoGhe());
+           int  m = pc.getSoGhe();
+           ps.setInt(4, m);
            ps.setString(5, pc.getMAPC());
            
            ps.executeUpdate();
