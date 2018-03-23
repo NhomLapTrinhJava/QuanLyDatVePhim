@@ -5,6 +5,16 @@
  */
 package javaapplication1;
 
+import DAO.PhongChieuDAO;
+import DAO.RapDAO;
+import DTO.PhongChieuDTO;
+import DTO.RapDTO;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author abcd
@@ -16,6 +26,7 @@ public class Quanlyrap extends javax.swing.JFrame {
      */
     public Quanlyrap() {
         initComponents();
+        laydanhsachrap();
     }
 
     /**
@@ -30,18 +41,19 @@ public class Quanlyrap extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jTextField6 = new javax.swing.JTextField();
+        txtMaRap = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtTenRap = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtDiaChi = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        grvRapPhim = new javax.swing.JTable();
         jButton9 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,39 +91,21 @@ public class Quanlyrap extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setText("Địa Chỉ");
 
-        jButton9.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jButton9.setText("Thêm");
-
-        jButton11.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jButton11.setText("Xóa");
-
-        jButton12.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jButton12.setText("Sửa");
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField7)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField8)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)))
+                    .addComponent(txtTenRap, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                    .addComponent(txtMaRap)
+                    .addComponent(txtDiaChi))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -120,45 +114,74 @@ public class Quanlyrap extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaRap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenRap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(txtDiaChi, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(jLabel8))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45))
+                .addGap(20, 20, 20))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Danh Sách Rạp Phim"), "Danh Sách Rạp Phim", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18), new java.awt.Color(0, 102, 255))); // NOI18N
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        grvRapPhim.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Mã rạp", "Tên rạp", "Địa Chỉ"
+                "MaRap", "TenRap", "DiaChi"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        grvRapPhim.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                grvRapPhimMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(grvRapPhim);
+
+        jButton9.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jButton9.setText("Thêm");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jButton11.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jButton11.setText("Xóa");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jButton12.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jButton12.setText("Sửa");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
+        jButton10.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jButton10.setText("Mới");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -166,15 +189,33 @@ public class Quanlyrap extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(266, 266, 266))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(210, 210, 210))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -193,18 +234,147 @@ public class Quanlyrap extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+
+            
+            RapDTO pc=new RapDTO();
+            pc.setMARAP(txtMaRap.getText().toString());
+            pc.setTENRAP(txtTenRap.getText().toString());
+            pc.setDIACHI(txtDiaChi.getText().toString());
+          
+          
+            RapDAO pcdao=new RapDAO();
+            pcdao.themRap(pc);
+            JOptionPane.showMessageDialog(null, "Lưu thành công ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+               
+             
+          laydanhsachrap();
+          
+             
+               
+            
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "thêm thất bại đã có lỗi xảy ra ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    
+     public void laydanhsachrap()
+    {
+         try {
+            xoadanhsachrap();
+            RapDAO pc=new RapDAO();
+            List<RapDTO> list= pc.laydanhrapphim();
+            
+             DefaultTableModel model = (DefaultTableModel) grvRapPhim.getModel();
+            
+            for(int i=0;i<list.size();i++)
+            {
+              model.addRow(new Object[]{list.get(i).getMARAP(),list.get(i).getTENRAP(),list.get(i).getDIACHI()});
+            }
+       
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+      
+      
+      public void xoadanhsachrap()
+    {
+         try {
+            
+            RapDAO pc=new RapDAO();
+            List<RapDTO> list= pc.laydanhrapphim();
+         
+             DefaultTableModel model = (DefaultTableModel) grvRapPhim.getModel();
+            
+           model.getDataVector().removeAllElements();
+            model.fireTableDataChanged();
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+          try {
+            // TODO add your handling code here:
+            RapDTO pc =new RapDTO();
+            RapDAO pcdao=new RapDAO();
+            pc.setMARAP((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 0).toString()));
+            pc.setTENRAP((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 1).toString()));
+            pc.setDIACHI((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 2).toString()));
+          
+             
+          
+             
+             pc.setMARAP(txtMaRap.getText());
+            pc.setTENRAP(txtTenRap.getText());
+            pc.setDIACHI(txtDiaChi.getText());
+       
+           
+            pcdao.capnhatRap(pc);
+            
+            
+            laydanhsachrap();
+              JOptionPane.showMessageDialog(null, "cap nhat thanh cong ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            
+            RapDTO pc =new RapDTO();
+            pc.setMARAP((String)(grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 0)));
+            
+            RapDAO pcdao=new RapDAO();
+            pcdao.xoaRap(pc);
+            laydanhsachrap();
+             JOptionPane.showMessageDialog(null, "xoa thanh cong ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        txtMaRap.setText("");
+        txtTenRap.setText("");
+        txtDiaChi.setText("");
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void grvRapPhimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grvRapPhimMouseClicked
+        // TODO add your handling code here:
+        
+           txtMaRap.setText((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 0).toString()));
+            txtTenRap.setText((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 1).toString()));
+            txtDiaChi.setText((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 2).toString()));
+            
+    }//GEN-LAST:event_grvRapPhimMouseClicked
 
     /**
      * @param args the command line arguments
@@ -242,6 +412,8 @@ public class Quanlyrap extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable grvRapPhim;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton9;
@@ -253,9 +425,8 @@ public class Quanlyrap extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField txtDiaChi;
+    private javax.swing.JTextField txtMaRap;
+    private javax.swing.JTextField txtTenRap;
     // End of variables declaration//GEN-END:variables
 }
