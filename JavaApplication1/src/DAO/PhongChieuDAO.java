@@ -20,6 +20,17 @@ import java.util.logging.Logger;
 import DTO.RapDTO;
 import DTO.PhongChieuDTO;
 import java.util.List;
+import java.util.Set;
+import javax.swing.JOptionPane;
+
+
+ import javax.validation.Configuration;  
+ import javax.validation.ConstraintViolation;  
+ import javax.validation.Validation;  
+ import javax.validation.Validator;  
+ import javax.validation.ValidatorFactory;  
+
+  
 /**
  *
  * @author abcd
@@ -28,6 +39,9 @@ public class PhongChieuDAO {
      public static Connection a;
     public static ResultSet rs;
      public static  Sqlconnect sqlcn;
+      Configuration<?> config = Validation.byDefaultProvider().configure();  
+      ValidatorFactory factory = config.buildValidatorFactory();  
+     Validator validator = factory.getValidator();  
     public void themPhongChieu(PhongChieuDTO pc) throws ClassNotFoundException 
     {
         
@@ -57,13 +71,29 @@ public class PhongChieuDAO {
            ps.setInt(5, pc.getSoGhe());
         
            ps.executeUpdate();
-           System.out.print("Đã Thêm Thành Côngs");
+            displayViolationsIfAny(validator.validate(pc));  
             
         } catch (SQLException ex) {
           Logger.getLogger(PhongChieuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
+    
+     public static <T> void displayViolationsIfAny(Set<ConstraintViolation<T>> violations){  
+           if(violations.isEmpty()){  
+              JOptionPane.showMessageDialog(null, "Không có thông tin",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+                return;  
+           }  
+          
+           for(ConstraintViolation<T> violation : violations){  
+               
+              
+                 JOptionPane.showMessageDialog(null, violation.getMessage(),
+                  "Title", JOptionPane.WARNING_MESSAGE);
+                
+           }  
+      }   
       public List<PhongChieuDTO> laydanhsachPhongChieu() throws ClassNotFoundException 
     {
          sqlcn=new Sqlconnect();
@@ -116,6 +146,8 @@ public class PhongChieuDAO {
         return list;
     }
     
+    
+      
       public void xoaPhongChieu(PhongChieuDTO pc) throws ClassNotFoundException 
     {
         

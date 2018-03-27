@@ -35,7 +35,7 @@ public class RapDAO {
      
         try {
               a =sqlcn.getSQLServerConnection();
-           System.out.print("ket noi thanh cong ");
+        
              
             
         } catch (SQLException ex) {
@@ -44,13 +44,13 @@ public class RapDAO {
         }
         try {
             Statement statement = a.createStatement();
-            rs=statement.executeQuery("select MARAP from RAP");
+            rs=statement.executeQuery("select * from RAP");
              System.out.print("truy van thanh cong ");
             
         } catch (SQLException ex) {
            System.out.print("loi khong the thuc hien truy van ");
         }
-         System.out.print("\n Danh sach Hoc Sinh");
+         System.out.print("\n Danh sach ");
         try {
           
             while(rs.next())
@@ -69,15 +69,125 @@ public class RapDAO {
 //                System.out.print("\n");
                   RapDTO rap=new RapDTO();
                rap.setMARAP(rs.getString("MARAP"));
+                rap.setTENRAP(rs.getString("TENRAP"));
+                rap.setDIACHI(rs.getString("DIACHI"));
                list.add(rap);
                
             }
         } catch (SQLException ex) {
-            System.out.print("loi khong the khoi tao hoc sinh ");
+            System.out.print("loi khong the khoi tao ");
             
         }
          
         
         return list;
     }
+    
+    
+      public void themRap(RapDTO pc) throws ClassNotFoundException 
+    {
+        
+           sqlcn=new Sqlconnect();
+           
+      
+      
+      
+     
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+           System.out.print("ket noi thanh cong ");
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        try {
+            String sql="insert into Rap(MaRap,TenRap,DiaChi) values(?,?,?)";
+            PreparedStatement ps=a.prepareStatement(sql);
+           ps.setString(1,pc.getMARAP());
+           ps.setString(2, pc.getTENRAP());
+           ps.setString(3,pc.getDIACHI());
+    
+        
+           ps.executeUpdate();
+           System.out.print("Đã Thêm Thành Công");
+            
+        } catch (SQLException ex) {
+          Logger.getLogger(RapDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
+    
+      public void xoaRap(RapDTO pc) throws ClassNotFoundException 
+    {
+        
+           sqlcn=new Sqlconnect();
+           
+      
+      
+      
+     
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+           System.out.print("ket noi thanh cong ");
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        try {
+            String sql="DELETE Rap  WHERE MARAP= ?";
+            PreparedStatement ps=a.prepareStatement(sql);
+           ps.setString(1,pc.getMARAP());
+           ps.executeUpdate();
+           System.out.print("Đã xóa thành công  " + pc.getMARAP());
+          
+           
+        } catch (SQLException ex) {
+          Logger.getLogger(RapDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+     public void capnhatRap(RapDTO pc) throws ClassNotFoundException 
+    {
+        
+           sqlcn=new Sqlconnect();
+           
+      
+      
+      
+     
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+           System.out.print("ket noi thanh cong ");
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        try {
+            String sql="UPDATE Rap SET TenRap=?,DiaChi=? WHERE MaRap =?";
+            PreparedStatement ps=a.prepareStatement(sql);
+           ps.setString(1,pc.getTENRAP());
+           ps.setString(2, pc.getDIACHI());
+            ps.setString(3, pc.getMARAP());
+         
+           
+           ps.executeUpdate();
+           System.out.print("Cập nhật thành công ");
+            
+        } catch (SQLException ex) {
+          Logger.getLogger(RapDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }  
+     
 }

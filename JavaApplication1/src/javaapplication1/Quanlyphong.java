@@ -93,10 +93,8 @@ public class Quanlyphong extends javax.swing.JFrame {
          
              DefaultTableModel model = (DefaultTableModel) grvDanhSachPhong.getModel();
             
-            for(int i=0;i<model.getRowCount();i++)
-            {
-               model.removeRow(i);
-            }
+               model.getDataVector().removeAllElements();
+            model.fireTableDataChanged();
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);

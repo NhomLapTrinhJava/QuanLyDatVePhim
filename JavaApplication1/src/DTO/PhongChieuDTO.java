@@ -5,25 +5,39 @@
  */
 package DTO;
 
+
+ import javax.validation.constraints.Min;  
+ import javax.validation.constraints.NotNull;  
+ import javax.validation.constraints.Past;  
+ import javax.validation.constraints.Pattern;  
+ import javax.validation.constraints.Size;  
+
 /**
  *
  * @author abcd
  */
 public class PhongChieuDTO {
-     private String MAPC;
+    @NotNull(message="Không được bỏ trống")  
+    private String MAPC;
+   
+    
     private int SOHG;
+    
+  
     private int SODG;
     private String MOTA;
     private String DKKT;
     private String TINHTRANG;
     private String MARAP;
+    
+    @Min(value=1, message="Phải là số")
     private int SoGhe;
 
     public PhongChieuDTO() {
     }
 
     
-
+    
     public PhongChieuDTO(String MAPC) {
         this.MAPC = MAPC;
     }
@@ -74,4 +88,14 @@ public class PhongChieuDTO {
       public void setMARAP(String MARAP) {
         this.MARAP = MARAP;
     }
+      
+       public PhongChieuDTO(String MAPC, int SOHG, int SODG, String MoTa, String DKKT, String TinhTrang,String MARAP){  
+           this.MAPC = MAPC;  
+           this.SOHG = SOHG;  
+           this.SODG = SODG;  
+           this.MOTA = MoTa;  
+             this.DKKT = DKKT;  
+           this.TINHTRANG = TINHTRANG;  
+           this.MARAP = MARAP;  
+      }  
 }
