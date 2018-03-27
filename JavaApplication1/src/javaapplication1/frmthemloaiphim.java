@@ -264,6 +264,8 @@ public class frmthemloaiphim extends javax.swing.JFrame {
             phimdao.them(phimdto);
              JOptionPane.showMessageDialog(null, "them thành công ",
                   "Title", JOptionPane.WARNING_MESSAGE);
+             laydanhsachphimloaiphim();
+             tb_loaiphim.updateUI();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmthemloaiphim.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -281,6 +283,8 @@ public class frmthemloaiphim extends javax.swing.JFrame {
             dao.xoaphimloaiphim(dto);
              JOptionPane.showMessageDialog(null, "xoa thành công ",
                   "Title", JOptionPane.WARNING_MESSAGE);
+              laydanhsachphimloaiphim();
+             tb_loaiphim.updateUI();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmthemloaiphim.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -297,6 +301,8 @@ public class frmthemloaiphim extends javax.swing.JFrame {
             dao.capnhatphimloaiphim(dto);
              JOptionPane.showMessageDialog(null, "cap nhat thành công ",
                   "Title", JOptionPane.WARNING_MESSAGE);
+              laydanhsachphimloaiphim();
+             tb_loaiphim.updateUI();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmthemloaiphim.class.getName()).log(Level.SEVERE, null, ex);
         }

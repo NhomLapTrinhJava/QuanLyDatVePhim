@@ -17,12 +17,31 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javaapplication1.frmthemloaiphim;
+ 
+import java.text.ParseException;  
+ import java.text.SimpleDateFormat;  
+ import java.util.Set;  
+import java.util.regex.Pattern;
+
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.validation.ValidationResult;
+import com.jgoodies.validation.util.DefaultValidationResultModel;
+import com.jgoodies.validation.util.ValidationResultModel;
+import com.jgoodies.validation.util.ValidationUtils;
+import com.jgoodies.validation.view.ValidationResultViewFactory;
+import javax.swing.JComponent;
+
+
 /**
  *
  * @author abcd
  */
 public class Quanlyphim extends javax.swing.JFrame {
 
+    
+     private ValidationResultModel validationResultModel;
     /**
      * Creates new form Quanlyphim
      */
@@ -61,6 +80,33 @@ public class Quanlyphim extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+  private ValidationResult validateIt() {
+        ValidationResult validationResult = new ValidationResult();
+        
+        if (ValidationUtils.isEmpty(txt_maphim.getText())) {
+            validationResult.addError("ma phim khong duoc de trong");
+           
+        } 
+        
+
+        if (ValidationUtils.isEmpty(txt_tenphim.getText())) {
+            validationResult.addError("ten phim  khong duoc de trong");
+        }
+        
+
+        if (ValidationUtils.isEmpty(txt_hangphim.getText())) {
+            validationResult.addError("hang phim khong duoc de trong");
+        }
+
+        if (ValidationUtils.isEmpty(txt_thoiluong.getText())) {
+            validationResult.addError("thoi luong khong duoc de trong");
+        }
+        if(!ValidationUtils.isDigit(txt_thoiluong.getText()))
+        {
+            validationResult.addError("Thoi luong phai la so");
+        }
+        return validationResult;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,6 +155,17 @@ public class Quanlyphim extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setText("Năm Sản Xuất");
+
+        txt_maphim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_maphimActionPerformed(evt);
+            }
+        });
+        txt_maphim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_maphimKeyPressed(evt);
+            }
+        });
 
         txt_tenphim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -347,7 +404,12 @@ public class Quanlyphim extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_tenphimActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
+       
+           ValidationResult validationResult=validateIt();
+           
+           if(validationResult.isEmpty())
+           {
+                    try {
             // TODO add your handling code here:
 
             
@@ -358,6 +420,7 @@ public class Quanlyphim extends javax.swing.JFrame {
             pm.setHANGPHIM(txt_hangphim.getText().toString());
             pm.setTHOILUONG(Integer.parseInt(txt_thoiluong.getText().toString()));
             pm.setMOTA(txt_mota.getText().toString());
+           
             PhimDAO pmdao=new PhimDAO();
             pmdao.themmotphim(pm);
             JOptionPane.showMessageDialog(null, "Lưu thành công ",
@@ -371,6 +434,18 @@ public class Quanlyphim extends javax.swing.JFrame {
                   "Title", JOptionPane.WARNING_MESSAGE);
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
         }
+           }
+           else
+           {
+                 JOptionPane.showMessageDialog(null,validationResult.getMessagesText()
+                  );
+           }
+           
+        
+            
+          
+        
+                 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -443,6 +518,19 @@ public class Quanlyphim extends javax.swing.JFrame {
        frm.setVisible(true);
      
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void txt_maphimKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_maphimKeyPressed
+        // TODO add your handling code here:
+       
+        
+    }//GEN-LAST:event_txt_maphimKeyPressed
+
+    private void txt_maphimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_maphimActionPerformed
+        // TODO add your handling code here:
+     
+        
+        
+    }//GEN-LAST:event_txt_maphimActionPerformed
 
     /**
      * @param args the command line arguments

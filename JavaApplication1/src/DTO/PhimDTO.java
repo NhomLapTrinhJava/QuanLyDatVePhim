@@ -82,8 +82,11 @@ public class PhimDTO {
     public void setDSDV(String DSDV) {
         this.DSDV = DSDV;
     }
+ 
     public String MAPHIM;
+ 
     public String TENPHIM;
+
     public int NAMSX;
     public String HANGPHIM;
     public int THOILUONG;

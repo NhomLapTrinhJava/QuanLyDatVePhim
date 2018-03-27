@@ -22,6 +22,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.validation.ValidationResult;
+import com.jgoodies.validation.util.DefaultValidationResultModel;
+import com.jgoodies.validation.util.ValidationResultModel;
+import com.jgoodies.validation.util.ValidationUtils;
+import com.jgoodies.validation.view.ValidationResultViewFactory;
+import javax.swing.JComponent;
 
 /**
 /**
@@ -93,7 +102,27 @@ public class Quanlyphong extends javax.swing.JFrame {
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+     private ValidationResult validateIt() {
+        ValidationResult validationResult = new ValidationResult();
+        
+        if (ValidationUtils.isEmpty(txtMaPhong.getText())) {
+            validationResult.addError("ma phong khong duoc de trong");
+           
+        } 
+        
+
+        if (ValidationUtils.isEmpty(txtSoGhe.getText())) {
+            validationResult.addError("so ghe  khong duoc de trong");
+        }
+        if(!ValidationUtils.isDigit(txtSoGhe.getText()))
+        {
+             validationResult.addError("ghe phai la so ");
+        }
+
+       
+
+        return validationResult;
+    }
     
     
     
@@ -352,7 +381,11 @@ public class Quanlyphong extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-         try {
+        
+        ValidationResult validationResult=validateIt();
+        if(validationResult.isEmpty())
+        {
+             try {
             // TODO add your handling code here:
 
             
@@ -371,13 +404,19 @@ public class Quanlyphong extends javax.swing.JFrame {
              
           
               laydanhsachphongchieu();
-             
+             grvDanhSachPhong.updateUI();
                
             
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "thêm thất bại đã có lỗi xảy ra ",
                   "Title", JOptionPane.WARNING_MESSAGE);
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+       else
+        {
+             JOptionPane.showMessageDialog(null,validationResult.getMessagesText()
+                  );
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -404,7 +443,7 @@ public class Quanlyphong extends javax.swing.JFrame {
            
             pcdao.capnhatPhongChieu(pc);
             laydanhsachphongchieu();
-            
+            grvDanhSachPhong.updateUI();
               JOptionPane.showMessageDialog(null, "cap nhat thanh cong ",
                   "Title", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException ex) {
@@ -424,6 +463,7 @@ public class Quanlyphong extends javax.swing.JFrame {
             PhongChieuDAO pcdao=new PhongChieuDAO();
             pcdao.xoaPhongChieu(pc);
             laydanhsachphongchieu();
+            grvDanhSachPhong.updateUI();
              JOptionPane.showMessageDialog(null, "xoa thanh cong ",
                   "Title", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException ex) {
