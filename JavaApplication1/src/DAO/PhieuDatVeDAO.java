@@ -10,10 +10,12 @@ import DTO.PhimDTO;
 import DTO.PhieuDatVeDTO;
 import DTO.RapDTO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -44,10 +46,10 @@ public class PhieuDatVeDAO {
             PreparedStatement ps=a.prepareStatement(sql);
            ps.setString(1,phieu.MAPDV );
            ps.setInt(2, phieu.SLVE);
-           ps.setDate(3,phieu.GIODV);
+           ps.setDate(3,Date.valueOf(LocalDate.now()));
            ps.setString(4, phieu.TINHTRANG);
-           ps.setString(5, phieu.MAKH);
-           ps.setString(6, phieu.MANV);
+           ps.setString(5, "KH01");
+           ps.setString(6, "001");
            ps.executeUpdate();
            System.out.print("them phieu dat thanh cong ");
             

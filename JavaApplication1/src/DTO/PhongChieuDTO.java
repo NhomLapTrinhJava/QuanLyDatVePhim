@@ -6,18 +6,13 @@
 package DTO;
 
 
- import javax.validation.constraints.Min;  
- import javax.validation.constraints.NotNull;  
- import javax.validation.constraints.Past;  
- import javax.validation.constraints.Pattern;  
- import javax.validation.constraints.Size;  
 
 /**
  *
  * @author abcd
  */
 public class PhongChieuDTO {
-    @NotNull(message="Không được bỏ trống")  
+ 
     private String MAPC;
    
     
@@ -30,7 +25,7 @@ public class PhongChieuDTO {
     private String TINHTRANG;
     private String MARAP;
     
-    @Min(value=1, message="Phải là số")
+   
     private int SoGhe;
 
     public PhongChieuDTO() {
