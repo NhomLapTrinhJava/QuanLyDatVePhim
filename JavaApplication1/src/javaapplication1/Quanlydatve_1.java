@@ -5,6 +5,8 @@
  */
 package javaapplication1;
 
+import DAO.KhachHangDAO;
+import DTO.KhachHangDTO;
 import DAO.PhieuDatVeDAO;
 import DTO.PhieuDatVeDTO;
 import java.awt.FlowLayout;
@@ -30,6 +32,7 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
     public Quanlydatve_1() {
         initComponents();
         laydanhsachphieudat();
+        laydanhsachKH();
     }
 
     /**
@@ -50,12 +53,12 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txt_sl = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txt_makh = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         dtgiodat = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        cbb_rap = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
@@ -153,18 +156,20 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
                             .addComponent(jLabel9))))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dtgiodat)
-                    .addComponent(txt_maphieu)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dtgiodat)
+                            .addComponent(txt_maphieu)
                             .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(txt_makh, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbb_rap, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(17, 17, 17))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_sl, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(17, 17, 17))
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,8 +185,8 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txt_makh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbb_rap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -320,11 +325,25 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void dtgiodatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dtgiodatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dtgiodatActionPerformed
-
+     public void laydanhsachKH()
+    {
+        try {
+            KhachHangDAO kh=new KhachHangDAO();
+            List<KhachHangDTO> list=kh.laydanhsachKH();
+            for(int i=0;i<list.size();i++)
+            {
+                cbb_rap.addItem(list.get(i).getMAKH());
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
          
@@ -337,7 +356,7 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
             pm.setSLVE(Integer.parseInt(txt_sl.getText().toString()));
           //  pm.setGIODV(formatter.parse(dtgiodat.getText().toString()));
             //pm.setTINHTRANG(txt_hangphim.getText().toString());
-            pm.setMAKH(txt_makh.getText().toString());
+            pm.setMAKH(cbb_rap.getSelectedItem().toString());
           //  pm.setMANV(txt_mota.getText().toString());
             PhieuDatVeDAO pmdao=new PhieuDatVeDAO();
             pmdao.themmotphieudat(pm);
@@ -409,7 +428,7 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
             pm.setSLVE(Integer.parseInt(txt_sl.getText().toString()));
           //  pm.setGIODV(formatter.parse(dtgiodat.getText().toString()));
             //pm.setTINHTRANG(txt_hangphim.getText().toString());
-            pm.setMAKH(txt_makh.getText().toString());
+            pm.setMAKH(cbb_rap.getSelectedItem().toString());
           //  pm.setMANV(txt_mota.getText().toString());
             PhieuDatVeDAO pmdao=new PhieuDatVeDAO();
             pmdao.themmotphieudat(pm);
@@ -480,6 +499,7 @@ public void laydanhsachphieudat()
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbb_rap;
     private javax.swing.JTextField dtgiodat;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -500,7 +520,6 @@ public void laydanhsachphieudat()
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
-    private javax.swing.JTextField txt_makh;
     private javax.swing.JTextField txt_maphieu;
     private javax.swing.JTextField txt_sl;
     // End of variables declaration//GEN-END:variables
