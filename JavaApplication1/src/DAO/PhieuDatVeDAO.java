@@ -92,11 +92,12 @@ public class PhieuDatVeDAO {
 
                   PhieuDatVeDTO phieudat=new PhieuDatVeDTO();
                phieudat.setMAPDV(rs.getString("MAPDV"));
-               phieudat.setSLVE(rs.getInt("SLVE"));
+              // phieudat.setSLVE(rs.getInt("SLVE"));
                 phieudat.setGIODV(rs.getDate("GIODV"));
-               phieudat.setTINHTRANG(rs.getString("TINHTRANG"));
+            //   phieudat.setTINHTRANG(rs.getString("TINHTRANG"));
                  phieudat.setMAKH(rs.getString("MAKH"));
-                   phieudat.setMANV(rs.getString("MANV"));
+                //   phieudat.setMANV(rs.getString("MANV"));
+                phieudat.setSLVE(rs.getInt("SLVE"));
                list.add(phieudat);
                
             }
@@ -148,14 +149,14 @@ public class PhieuDatVeDAO {
              
         }
         try {
-            String sql="UPDATE PHIEUDATVE SET MAPDV=?,SLVE=?,GIODV=?,TINHTRANG=?,MAKH=?,MANV=? WHERE MAPDV =?";
+            String sql="UPDATE PHIEUDATVE SET SLVE=? WHERE MAPDV =?";
             PreparedStatement ps=a.prepareStatement(sql);
            ps.setString(1,phieudatve.getMAPDV());
            ps.setInt(2, phieudatve.getSLVE());
-           ps.setInt(3, phieudatve.getGIODV());
-           ps.setString(4, phieudatve.getTINHTRANG());
-           ps.setString(5, phieudatve.getMAKH());
-           ps.setString(6,phieudatve.getMANV());
+          // ps.setInt(3, phieudatve.getGIODV());
+          // ps.setString(4, phieudatve.getTINHTRANG());
+          // ps.setString(5, phieudatve.getMAKH());
+          // ps.setString(6,phieudatve.getMANV());
            ps.executeUpdate();
            System.out.print("cap nhat phieu dat ve thanh cong ");
         } catch (SQLException ex) {

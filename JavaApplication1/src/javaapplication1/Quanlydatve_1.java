@@ -29,6 +29,7 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
      */
     public Quanlydatve_1() {
         initComponents();
+        laydanhsachphieudat();
     }
 
     /**
@@ -382,12 +383,12 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
             //phim.setGIODV(Integer.parseInt(jTable6.getValueAt(jTable6.getSelectedRow(), 2).toString()));
            // phim.setTINHTRANG((jTable1.getValueAt(jTable6.getSelectedRow(), 3).toString()));
           //  phim.setMAKH(Integer.parseInt(jTable6.getValueAt(jTable6.getSelectedRow(), 4).toString()));
-            phim.setMANV((jTable6.getValueAt(jTable6.getSelectedRow(), 5).toString()));
+           // phim.setMANV((jTable6.getValueAt(jTable6.getSelectedRow(), 5).toString()));
             phimdao.capnhatphieudatve(phim);
             System.out.print((jTable6.getValueAt(jTable6.getSelectedRow(), 0)));
-            System.out.print((jTable6.getValueAt(jTable6.getSelectedRow(), 1)));
-            System.out.print((jTable6.getValueAt(jTable6.getSelectedRow(), 2)));
-            System.out.print((jTable6.getValueAt(jTable6.getSelectedRow(), 3)));
+           // System.out.print((jTable6.getValueAt(jTable6.getSelectedRow(), 1)));
+           // System.out.print((jTable6.getValueAt(jTable6.getSelectedRow(), 2)));
+           // System.out.print((jTable6.getValueAt(jTable6.getSelectedRow(), 3)));
             
               JOptionPane.showMessageDialog(null, "cap nhat thanh cong ",
                   "Title", JOptionPane.WARNING_MESSAGE);
@@ -405,7 +406,7 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
             PhieuDatVeDTO pm=new PhieuDatVeDTO();
             pm.setMAPDV(txt_maphieu.getText().toString());
-            pm.setSLVE(Integer.parseInt(dtgiodat.getText().toString()));
+            pm.setSLVE(Integer.parseInt(txt_sl.getText().toString()));
           //  pm.setGIODV(formatter.parse(dtgiodat.getText().toString()));
             //pm.setTINHTRANG(txt_hangphim.getText().toString());
             pm.setMAKH(txt_makh.getText().toString());
@@ -433,7 +434,7 @@ public void laydanhsachphieudat()
             
             for(int i=0;i<list.size();i++)
             {
-              model.addRow(new Object[]{list.get(i).getMAPDV(),list.get(i).getMAKH(),list.get(i).getGIODV(),list.get(i).getSLVE()});
+              model.addRow(new Object[]{list.get(i).getMAPDV(),list.get(i).getGIODV(),list.get(i).getMAKH(),list.get(i).getSLVE()});
             }
             
         } catch (ClassNotFoundException ex) {
