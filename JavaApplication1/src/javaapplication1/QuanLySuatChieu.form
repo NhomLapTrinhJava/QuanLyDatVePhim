@@ -73,6 +73,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD:JavaApplication1/src/javaapplication1/QuanLySuatChieu.form
               <Group type="102" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="63" max="-2" attributes="0"/>
@@ -131,10 +132,44 @@
                               <Component id="txtcc" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtgkt" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtmsc" alignment="0" max="32767" attributes="0"/>
+=======
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="txt_sl" min="-2" pref="312" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txt_maphieu" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="cbb_rap" min="-2" pref="245" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jButton2" min="-2" pref="93" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+>>>>>>> 6d37e0247f6a8b75ac58357b456761c528fc4d52:JavaApplication1/src/javaapplication1/Quanlydatve_1.form
                           </Group>
+                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="jButton3" min="-2" pref="129" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
+<<<<<<< HEAD:JavaApplication1/src/javaapplication1/QuanLySuatChieu.form
                   <EmptySpace max="32767" attributes="0"/>
+=======
+>>>>>>> 6d37e0247f6a8b75ac58357b456761c528fc4d52:JavaApplication1/src/javaapplication1/Quanlydatve_1.form
               </Group>
           </Group>
         </DimensionLayout>
@@ -153,6 +188,7 @@
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
+<<<<<<< HEAD:JavaApplication1/src/javaapplication1/QuanLySuatChieu.form
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtmsc" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -179,11 +215,29 @@
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+=======
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbb_rap" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jButton2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="txt_sl" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+>>>>>>> 6d37e0247f6a8b75ac58357b456761c528fc4d52:JavaApplication1/src/javaapplication1/Quanlydatve_1.form
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButton3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jButton2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jButton1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
+<<<<<<< HEAD:JavaApplication1/src/javaapplication1/QuanLySuatChieu.form
+=======
+                  <EmptySpace pref="69" max="32767" attributes="0"/>
+>>>>>>> 6d37e0247f6a8b75ac58357b456761c528fc4d52:JavaApplication1/src/javaapplication1/Quanlydatve_1.form
               </Group>
           </Group>
         </DimensionLayout>
@@ -256,11 +310,15 @@
             <Property name="text" type="java.lang.String" value="Ng&#xe0;y Chi&#x1ebf;u"/>
           </Properties>
         </Component>
+<<<<<<< HEAD:JavaApplication1/src/javaapplication1/QuanLySuatChieu.form
         <Component class="javax.swing.JTextField" name="txtcc">
         </Component>
         <Component class="javax.swing.JTextField" name="txtnc">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
+=======
+        <Component class="javax.swing.JButton" name="jButton2">
+>>>>>>> 6d37e0247f6a8b75ac58357b456761c528fc4d52:JavaApplication1/src/javaapplication1/Quanlydatve_1.form
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="1"/>
@@ -268,6 +326,7 @@
             <Property name="text" type="java.lang.String" value="M&#xe3; Su&#x1ea5;t Chi&#x1ebf;u"/>
           </Properties>
         </Component>
+<<<<<<< HEAD:JavaApplication1/src/javaapplication1/QuanLySuatChieu.form
         <Component class="javax.swing.JTextField" name="txtgbd">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -293,6 +352,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
+=======
+        <Component class="javax.swing.JLabel" name="jLabel9">
+>>>>>>> 6d37e0247f6a8b75ac58357b456761c528fc4d52:JavaApplication1/src/javaapplication1/Quanlydatve_1.form
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
@@ -314,6 +376,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
           </Events>
         </Component>
+<<<<<<< HEAD:JavaApplication1/src/javaapplication1/QuanLySuatChieu.form
         <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -332,6 +395,17 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Tra C&#x1ee9;u"/>
           </Properties>
+=======
+        <Component class="javax.swing.JComboBox" name="cbb_rap">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+>>>>>>> 6d37e0247f6a8b75ac58357b456761c528fc4d52:JavaApplication1/src/javaapplication1/Quanlydatve_1.form
         </Component>
       </SubComponents>
     </Container>

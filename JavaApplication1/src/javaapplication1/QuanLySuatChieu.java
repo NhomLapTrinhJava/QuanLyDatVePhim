@@ -47,6 +47,7 @@ public class QuanLySuatChieu extends javax.swing.JFrame {
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+      
        public void laydanhsachsuatchieu()
     {
          try {
