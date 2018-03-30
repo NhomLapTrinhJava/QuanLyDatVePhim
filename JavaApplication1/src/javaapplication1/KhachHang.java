@@ -4,7 +4,15 @@
  * and open the template in the editor.
  */
 package javaapplication1;
-
+import com.jgoodies.validation.ValidationResult;
+import com.jgoodies.validation.util.ValidationUtils;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import DAO.KhachHangDAO;
+import DTO.KhachHangDTO;
 /**
  *
  * @author Admin
@@ -16,6 +24,7 @@ public class KhachHang extends javax.swing.JFrame {
      */
     public KhachHang() {
         initComponents();
+        laydanhsachkh();
     }
 
     /**
@@ -36,6 +45,8 @@ public class KhachHang extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
+        txtDiaChi1 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         grvRapPhim = new javax.swing.JTable();
@@ -58,7 +69,7 @@ public class KhachHang extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(301, 301, 301)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,19 +91,28 @@ public class KhachHang extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setText("Địa Chỉ");
 
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel9.setText("Điện thoại");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTenRap, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                    .addComponent(txtDiaChi1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                    .addComponent(txtTenRap)
                     .addComponent(txtMaRap)
                     .addComponent(txtDiaChi))
                 .addContainerGap())
@@ -112,7 +132,11 @@ public class KhachHang extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDiaChi, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(jLabel8))
-                .addGap(20, 20, 20))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDiaChi1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jLabel9))
+                .addContainerGap())
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Danh Sách Rạp Phim"), "Danh Sách Rạp Phim", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18), new java.awt.Color(0, 102, 255))); // NOI18N
@@ -122,7 +146,7 @@ public class KhachHang extends javax.swing.JFrame {
 
             },
             new String [] {
-                "MaRap", "TenRap", "DiaChi"
+                "MaKH", "TenKH", "DiaChi"
             }
         ) {
             Class[] types = new Class [] {
@@ -211,17 +235,17 @@ public class KhachHang extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(494, 494, 494)))
+                        .addGap(0, 573, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(330, Short.MAX_VALUE)
+                    .addContainerGap(429, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
@@ -239,9 +263,32 @@ public class KhachHang extends javax.swing.JFrame {
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
+        jPanel6.getAccessibleContext().setAccessibleName("Thông Tin Khách hàng");
+        jPanel7.getAccessibleContext().setAccessibleName("Danh Sách Khách Hàng");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+     private ValidationResult validateIt() {
+        ValidationResult validationResult = new ValidationResult();
+        
+        if (ValidationUtils.isEmpty(txtMaRap.getText())) {
+            validationResult.addError("Ma KH Khong Duoc TRong");
+           
+        } 
+        
+
+       
+        if(ValidationUtils.isDigit(txtTenRap.getText()))
+        {
+             validationResult.addError("Ten KH Khong Duoc Trong ");
+        }
+
+       
+
+        return validationResult;
+    }
     private void grvRapPhimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grvRapPhimMouseClicked
         // TODO add your handling code here:
 
@@ -250,19 +297,110 @@ public class KhachHang extends javax.swing.JFrame {
         txtDiaChi.setText((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 2).toString()));
 
     }//GEN-LAST:event_grvRapPhimMouseClicked
-
+public void laydanhsachkh()
+    {
+         try {
+          //  xoadanhsachrap();
+            KhachHangDAO pc=new KhachHangDAO();
+            List<KhachHangDTO> list= pc.laydanhsachKH();
+            
+             DefaultTableModel model = (DefaultTableModel) grvRapPhim.getModel();
+            
+            for(int i=0;i<list.size();i++)
+            {
+              model.addRow(new Object[]{list.get(i).getMAKH(),list.get(i).getTENKH(),list.get(i).getDIACHI()});
+            }
+       
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+         ValidationResult validationResult=validateIt();
+        if(validationResult.isEmpty())
+        {
+        try {
+            // TODO add your handling code here:
+
+            
+            KhachHangDTO pc=new KhachHangDTO();
+            pc.setMAKH(txtMaRap.getText().toString());
+            pc.setTENKH(txtTenRap.getText().toString());
+            pc.setDIACHI(txtDiaChi.getText().toString());
+          
+          
+            KhachHangDAO pcdao=new KhachHangDAO();
+            pcdao.themKH(pc);
+            JOptionPane.showMessageDialog(null, "Lưu thành công ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+               
+             
+          laydanhsachkh();
+          
+             
+               
+            
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "thêm thất bại đã có lỗi xảy ra ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(null,validationResult.getMessagesText()
+                  );
+        }        // TODO add your handling code here:
        
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            
+            KhachHangDTO pc =new KhachHangDTO();
+            pc.setMAKH((String)(grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 0)));
+            
+            KhachHangDAO pcdao=new KhachHangDAO();
+            pcdao.xoaKH(pc);
+            laydanhsachkh();
+             JOptionPane.showMessageDialog(null, "xoa thanh cong ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
+          try {
+            // TODO add your handling code here:
+            KhachHangDTO pc =new KhachHangDTO();
+            KhachHangDAO pcdao=new KhachHangDAO();
+            pc.setMAKH((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 0).toString()));
+            pc.setTENKH((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 1).toString()));
+            pc.setDIACHI((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 2).toString()));
+          
+             
+          
+             
+             pc.setMAKH(txtMaRap.getText());
+            pc.setTENKH(txtTenRap.getText());
+            pc.setDIACHI(txtDiaChi.getText());
+       
+           
+            pcdao.capnhatKH(pc);
+            
+            
+            laydanhsachkh();
+              JOptionPane.showMessageDialog(null, "cap nhat thanh cong ",
+                  "Title", JOptionPane.WARNING_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
         
     }//GEN-LAST:event_jButton12ActionPerformed
 
@@ -307,6 +445,8 @@ public class KhachHang extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable grvRapPhim;
@@ -318,11 +458,13 @@ public class KhachHang extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField txtDiaChi;
+    private javax.swing.JTextField txtDiaChi1;
     private javax.swing.JTextField txtMaRap;
     private javax.swing.JTextField txtTenRap;
     // End of variables declaration//GEN-END:variables

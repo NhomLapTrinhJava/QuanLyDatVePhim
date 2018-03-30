@@ -71,4 +71,113 @@ public class KhachHangDAO {
         
         return list;
     }
+      
+         public void themKH(KhachHangDTO pc) throws ClassNotFoundException 
+    {
+        
+           sqlcn=new Sqlconnect();
+           
+      
+      
+      
+     
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+           System.out.print("ket noi thanh cong ");
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        try {
+            String sql="insert into KHACHHANG(MaKH,TENKH,DIACHI,MADT) values(?,?,?,?)";
+            PreparedStatement ps=a.prepareStatement(sql);
+           ps.setString(1,pc.getMAKH());
+           ps.setString(2, pc.getTENKH());
+           ps.setString(3,pc.getDIACHI());
+           ps.setString(3,"1");
+    
+        
+           ps.executeUpdate();
+           System.out.print("Đã Thêm Thành Công");
+            
+        } catch (SQLException ex) {
+          Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
+    
+        public void xoaKH(KhachHangDTO pc) throws ClassNotFoundException 
+    {
+        
+           sqlcn=new Sqlconnect();
+           
+      
+      
+      
+     
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+           System.out.print("ket noi thanh cong ");
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        try {
+            String sql="DELETE KHACHHANG  WHERE MAKH= ?";
+            PreparedStatement ps=a.prepareStatement(sql);
+           ps.setString(1,pc.getMAKH());
+           ps.executeUpdate();
+           System.out.print("Đã xóa thành công  " + pc.getMAKH());
+          
+           
+        } catch (SQLException ex) {
+          Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+     public void capnhatKH(KhachHangDTO pc) throws ClassNotFoundException 
+    {
+        
+           sqlcn=new Sqlconnect();
+           
+      
+      
+      
+     
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+           System.out.print("ket noi thanh cong ");
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        try {
+            String sql="UPDATE KHACHHANG SET TENKH=?,DIACHI=? WHERE MAKH =?";
+            PreparedStatement ps=a.prepareStatement(sql);
+           ps.setString(1,pc.getTENKH());
+           ps.setString(2, pc.getDIACHI());
+            ps.setString(3, pc.getMAKH());
+         
+           
+           ps.executeUpdate();
+           System.out.print("Cập nhật thành công ");
+            
+        } catch (SQLException ex) {
+          Logger.getLogger(RapDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }  
+     
 }
