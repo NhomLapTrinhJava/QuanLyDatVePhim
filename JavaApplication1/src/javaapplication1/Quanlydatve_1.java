@@ -20,6 +20,16 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javaapplication1.frmthemloaiphim;
 import java.text.SimpleDateFormat;
+
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.validation.ValidationResult;
+import com.jgoodies.validation.util.DefaultValidationResultModel;
+import com.jgoodies.validation.util.ValidationResultModel;
+import com.jgoodies.validation.util.ValidationUtils;
+import com.jgoodies.validation.view.ValidationResultViewFactory;
+import javax.swing.JComponent;
 /**
  *
  * @author abcd
@@ -346,8 +356,10 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
     }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-         
-         try {
+          ValidationResult validationResult=validateIt();
+        if(validationResult.isEmpty())
+        {
+           try {
             // TODO add your handling code here:
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
@@ -371,6 +383,13 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
                   "Title", JOptionPane.WARNING_MESSAGE);
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+       else
+        {
+             JOptionPane.showMessageDialog(null,validationResult.getMessagesText()
+                  );
+        }
+         
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -416,10 +435,33 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
         }
          
     }//GEN-LAST:event_jButton5ActionPerformed
+     private ValidationResult validateIt() {
+        ValidationResult validationResult = new ValidationResult();
+        
+        if (ValidationUtils.isEmpty(txt_maphieu.getText())) {
+            validationResult.addError("ma phieu dat khong duoc de trong");
+           
+        } 
+        
 
+        if (ValidationUtils.isEmpty(txt_sl.getText())) {
+            validationResult.addError("so luong  khong duoc de trong");
+        }
+        if(!ValidationUtils.isDigit(txt_sl.getText()))
+        {
+             validationResult.addError("so luong la so ");
+        }
+
+       
+
+        return validationResult;
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         try {
+           ValidationResult validationResult=validateIt();
+        if(validationResult.isEmpty())
+        {
+           try {
             // TODO add your handling code here:
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
@@ -442,6 +484,12 @@ public class Quanlydatve_1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "thêm thất bại đã có lỗi xảy ra ",
                   "Title", JOptionPane.WARNING_MESSAGE);
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+       else
+        {
+             JOptionPane.showMessageDialog(null,validationResult.getMessagesText()
+                  );
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 public void laydanhsachphieudat()
