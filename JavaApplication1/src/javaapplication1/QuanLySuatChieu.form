@@ -348,7 +348,11 @@
             <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
           </Properties>
           <Events>
+<<<<<<< HEAD:JavaApplication1/src/javaapplication1/QuanLySuatChieu.form
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+=======
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+>>>>>>> 6adcb5c8614bac39f3f38b5a9bdfca923e9ff31d:JavaApplication1/src/javaapplication1/Quanlydatve_1.form
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">

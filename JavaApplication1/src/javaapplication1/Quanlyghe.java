@@ -158,6 +158,12 @@ public class Quanlyghe extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setText("Tình trạng");
 
+        cboMaLG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboMaLGActionPerformed(evt);
+            }
+        });
+
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoạt Động", "Không Hoạt Động" }));
         jComboBox3.setToolTipText("");
 
@@ -500,6 +506,10 @@ public class Quanlyghe extends javax.swing.JFrame {
             cboTinhTrang.setSelectedItem((grvGhe.getValueAt(grvGhe.getSelectedRow(),4).toString()));
             
     }//GEN-LAST:event_grvGheMouseClicked
+
+    private void cboMaLGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboMaLGActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboMaLGActionPerformed
 
     /**
      * @param args the command line arguments

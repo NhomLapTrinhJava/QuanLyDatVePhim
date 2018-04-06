@@ -48,8 +48,8 @@ public class PhieuDatVeDAO {
            ps.setInt(2, phieu.SLVE);
            ps.setDate(3,Date.valueOf(LocalDate.now()));
            ps.setString(4, phieu.TINHTRANG);
-           ps.setString(5, "KH01");
-           ps.setString(6, "001");
+           ps.setString(5, phieu.MAKH);
+           ps.setString(6, "1");
            ps.executeUpdate();
            System.out.print("them phieu dat thanh cong ");
             

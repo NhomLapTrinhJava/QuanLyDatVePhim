@@ -11,7 +11,10 @@ import DAO.SUATCHIEUDAO;
 import DAO.PHIM_SUATCHIEU_DAO;
 import DAO.PHONG_SUATCHIEU_DAO;
 import DAO.PhimDAO;
+import DAO.PhongChieuDAO;
 import DTO.PhimDTO;
+import DAO.PhongChieuDAO;
+import DTO.PhongChieuDTO;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +34,7 @@ public class QuanLySuatChieu extends javax.swing.JFrame {
         initComponents();
         laydanhsachphim();
         laydanhsachsuatchieu();
+        laydanhsachphongchieu();
     }
       public void laydanhsachphim()
     {
@@ -47,8 +51,23 @@ public class QuanLySuatChieu extends javax.swing.JFrame {
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-      
-       public void laydanhsachsuatchieu()
+             
+     public void laydanhsachphongchieu()
+    {
+        try {
+            PhongChieuDAO rap=new PhongChieuDAO();
+            List<PhongChieuDTO> list=rap.laydanhsachPhongChieu();
+            for(int i=0;i<list.size();i++)
+            {
+                cbbpc.addItem(list.get(i).getMAPC());
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+     public void laydanhsachsuatchieu()
     {
          try {
             SUATCHIEUDAO phim=new SUATCHIEUDAO();

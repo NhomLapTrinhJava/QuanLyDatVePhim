@@ -346,6 +346,12 @@ public class Quanlyphim extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        cbb_rap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_rapActionPerformed(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel2.setText("Rạp");
 
@@ -531,6 +537,10 @@ public class Quanlyphim extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_txt_maphimActionPerformed
+
+    private void cbb_rapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_rapActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbb_rapActionPerformed
 
     /**
      * @param args the command line arguments
