@@ -27,8 +27,8 @@ public class PhieuDatVeDTO {
     public void setSLVE(int SLVE) {
         this.SLVE = SLVE;
     }
-    public int getGIODV() {
-        return SLVE;
+    public Date getGIODV() {
+        return GIODV;
     }
 
     public void setGIODV(Date GIODV) {

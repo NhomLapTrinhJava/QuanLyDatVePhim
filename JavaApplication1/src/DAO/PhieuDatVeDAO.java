@@ -92,12 +92,12 @@ public class PhieuDatVeDAO {
 
                   PhieuDatVeDTO phieudat=new PhieuDatVeDTO();
                phieudat.setMAPDV(rs.getString("MAPDV"));
-              // phieudat.setSLVE(rs.getInt("SLVE"));
-                phieudat.setGIODV(rs.getDate("GIODV"));
-            //   phieudat.setTINHTRANG(rs.getString("TINHTRANG"));
-                 phieudat.setMAKH(rs.getString("MAKH"));
-                //   phieudat.setMANV(rs.getString("MANV"));
                 phieudat.setSLVE(rs.getInt("SLVE"));
+                phieudat.setGIODV(rs.getDate("GIODV"));
+              phieudat.setTINHTRANG(rs.getString("TINHTRANG"));
+                 phieudat.setMAKH(rs.getString("MAKH"));
+                  phieudat.setMANV(rs.getString("MANV"));
+               
                list.add(phieudat);
                
             }
@@ -149,14 +149,15 @@ public class PhieuDatVeDAO {
              
         }
         try {
-            String sql="UPDATE PHIEUDATVE SET SLVE=? WHERE MAPDV =?";
+            String sql="UPDATE PHIEUDATVE SET SLVE=?, GIODV=?, TINHTRANG=?,MAKH=?,MANV=? WHERE MAPDV =?";
             PreparedStatement ps=a.prepareStatement(sql);
-           ps.setString(1,phieudatve.getMAPDV());
-           ps.setInt(2, phieudatve.getSLVE());
-          // ps.setInt(3, phieudatve.getGIODV());
-          // ps.setString(4, phieudatve.getTINHTRANG());
-          // ps.setString(5, phieudatve.getMAKH());
-          // ps.setString(6,phieudatve.getMANV());
+           ps.setInt(1,phieudatve.getSLVE());
+     
+           ps.setDate(2, phieudatve.getGIODV());
+           ps.setString(3, phieudatve.getTINHTRANG());
+           ps.setString(4, phieudatve.getMAKH());
+           ps.setString(5,phieudatve.getMANV());
+                ps.setString(6, phieudatve.getMAPDV());
            ps.executeUpdate();
            System.out.print("cap nhat phieu dat ve thanh cong ");
         } catch (SQLException ex) {
@@ -164,5 +165,35 @@ public class PhieuDatVeDAO {
         }
         
     }  
+        public ResultSet lapbaocaophieudatve() throws ClassNotFoundException 
+    {
+         sqlcn=new Sqlconnect();
      
+         List<PhieuDatVeDTO> list=new ArrayList();
+     
+      
+     
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+           System.out.print("ket noi thanh cong ");
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        try {
+            Statement statement = a.createStatement();
+            rs=statement.executeQuery("select * from PHIEUDATVE");
+             System.out.print("truy van thanh cong ");
+            
+        } catch (SQLException ex) {
+           System.out.print("loi khong the thuc hien truy van ");
+        }
+        
+         
+        
+        return rs;
+    }
 }

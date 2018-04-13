@@ -4,12 +4,16 @@
  * and open the template in the editor.
  */
 package javaapplication1;
+import java.io.InputStream;
 import javaapplication1.Quanlyphim;
 
 import javaapplication1.Quanlylich;
 import javaapplication1.KhachHang;
 import javaapplication1.Quanlyghe;
 import javaapplication1.QuanLySuatChieu;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperReport;
 
 /**
  * 
@@ -74,6 +78,11 @@ public class frmain1 extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 0, 204));
         jButton4.setText("Lập Báo Cáo");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(102, 0, 102));
@@ -243,6 +252,10 @@ public class frmain1 extends javax.swing.JFrame {
          Quanlyghe qlp=new Quanlyghe();
         qlp.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
