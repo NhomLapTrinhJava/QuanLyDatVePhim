@@ -50,6 +50,14 @@ public class PhongChieuDTO {
     public String getMOTA() {
         return MOTA;
     }
+    
+     public int getSOHG() {
+        return SOHG;
+    }
+     
+      public int getSODG() {
+        return SODG;
+    }
 
    
     
@@ -82,6 +90,13 @@ public class PhongChieuDTO {
     }
       public void setMARAP(String MARAP) {
         this.MARAP = MARAP;
+    }
+      
+      public void setSODG(int SODG) {
+        this.SODG = SODG;
+    }
+      public void setSOHG(int SOHG) {
+        this.SOHG = SOHG;
     }
       
        public PhongChieuDTO(String MAPC, int SOHG, int SODG, String MoTa, String DKKT, String TinhTrang,String MARAP){  
