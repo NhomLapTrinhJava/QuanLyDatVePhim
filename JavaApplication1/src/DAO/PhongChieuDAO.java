@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 
 import DTO.RapDTO;
 import DTO.PhongChieuDTO;
+import DAO.RapDAO;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
@@ -31,14 +32,64 @@ public class PhongChieuDAO {
      public static Connection a;
     public static ResultSet rs;
      public static  Sqlconnect sqlcn;
+      RapDAO rap = new RapDAO();
+     
+  public String PhatSinhPhongChieu() throws SQLException, ClassNotFoundException
+   {
+        sqlcn=new Sqlconnect();
+         //Statement statement = a.createStatement();
+        //ResultSet rs1=statement.executeQuery("select top 1 MaRap from RAP where MaRap = " + );
+      
+      
+      String ma = "";
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+        
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        
+            Statement statement = a.createStatement();
+            rs=statement.executeQuery("select top 1 * from PHONGCHIEU order by MAPC desc");
+            while(rs.next())
+            {
+              ma = rs.getString("MAPC");
+            }
+            
+            if(ma == "")
+            {
+                    ma = "PC/0" +  1;
+                    return ma;
+            }
+                 
+            
+            String[] split = ma.split("/");
+            String  m = split[1].toString().trim();
+            int n = Integer.parseInt(m);
+            if(n < 9)
+            {
+                n = n + 1;
+                ma = "PC/0" +  n;
+                
+            }
+            else
+            {
+                 n = n + 1;
+                ma = "PC/" +  n;
+            }
+         return  ma;
+   } 
           public void themPhongChieu(PhongChieuDTO pc) throws ClassNotFoundException 
     {
         
            sqlcn=new Sqlconnect();
            
-      
-      
-      
+       
+        
      
      
         try {
@@ -51,14 +102,17 @@ public class PhongChieuDAO {
              
         }
         try {
-            String sql="insert into PhongChieu(MaPC,MoTa,TinhTrang,MaRap,SoGhe) values(?,?,?,?,?)";
+            
+            String n = rap.LayMaRap(pc.getMARAP());
+            String sql="insert into PhongChieu(MaPC,MoTa,TinhTrang,MaRap,SODG,SOHG) values(?,?,?,?,?,?)";
             PreparedStatement ps=a.prepareStatement(sql);
-           ps.setString(1,pc.getMAPC() );
+           ps.setString(1,PhatSinhPhongChieu() );
            ps.setString(2, pc.getMOTA());
            ps.setString(3,pc.getTinhTrang());
-           ps.setString(4, pc.getMARAP());
-           ps.setInt(5, pc.getSoGhe());
-        
+           ps.setString(4, rap.LayMaRap(pc.getMARAP()) );
+           ps.setInt(5, pc.getSODG());
+           ps.setInt(6, pc.getSOHG());
+       
            ps.executeUpdate();            
         } catch (SQLException ex) {
           Logger.getLogger(PhongChieuDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,8 +158,10 @@ public class PhongChieuDAO {
                pc.setMAPC(rs.getString("MAPC"));
                pc.setMOTA(rs.getString("MOTA"));
                pc.setTINHTRANG(rs.getString("TINHTRANG"));
-               pc.setMARAP(rs.getString("MARAP"));
-               pc.setSoGhe(rs.getInt("SOGHE"));
+               pc.setMARAP(rap.LayTenRap(rs.getString("MARAP")));
+               pc.setSODG(rs.getInt("SODG"));
+               pc.setSOHG(rs.getInt("SOHG"));
+                  
                    
                list.add(pc);
                
@@ -172,14 +228,21 @@ public class PhongChieuDAO {
              
         }
         try {
-            String sql="UPDATE PHONGCHIEU SET MOTA=?,TINHTRANG=?,MARAP=?,SOGHE=? WHERE MAPC =?";
+            String sql="UPDATE PHONGCHIEU SET MOTA=?,TINHTRANG=?,MARAP=?,SODG=?,SOHG=? WHERE MAPC =?";
             PreparedStatement ps=a.prepareStatement(sql);
            ps.setString(1,pc.getMOTA());
            ps.setString(2, pc.getTinhTrang());
-           ps.setString(3, pc.getMARAP());
-           int  m = pc.getSoGhe();
+           ps.setString(3, rap.LayMaRap(pc.getMARAP()));
+           
+             int  m = pc.getSODG();
            ps.setInt(4, m);
-           ps.setString(5, pc.getMAPC());
+         
+           
+             int  n = pc.getSOHG();
+           ps.setInt(5, n);
+          
+         
+           ps.setString(6, pc.getMAPC());
            
            ps.executeUpdate();
            System.out.print("Cập nhật thành công ");

@@ -24,6 +24,156 @@ public class RapDAO {
     public static ResultSet rs;
    public static  Sqlconnect sqlcn;
    
+   
+   public String LayMaRap(String TenRap) throws ClassNotFoundException 
+    {
+         sqlcn=new Sqlconnect();
+     
+        
+       
+      String marap = ""; 
+     
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+        
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        try {
+            Statement statement = a.createStatement();
+            rs=statement.executeQuery("select * from RAP where TenRap = '" + TenRap + "'");
+             System.out.print("truy van thanh cong ");
+            
+        } catch (SQLException ex) {
+           System.out.print("loi khong the thuc hien truy van ");
+        }
+         System.out.print("\n Danh sach ");
+        try {
+          
+            while(rs.next())
+            {
+                
+                 
+             
+                marap =  rs.getString("MARAP");
+               
+            
+               
+            }
+        } catch (SQLException ex) {
+            System.out.print("loi khong the khoi tao ");
+            
+        }
+         
+        
+        return marap;
+    }
+   
+   
+   public String LayTenRap(String MaRap) throws ClassNotFoundException 
+    {
+         sqlcn=new Sqlconnect();
+     
+        
+       
+      String tenrap = ""; 
+     
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+        
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        try {
+            Statement statement = a.createStatement();
+            rs=statement.executeQuery("select * from RAP where MaRap = '" + MaRap + "'");
+             System.out.print("truy van thanh cong ");
+            
+        } catch (SQLException ex) {
+           System.out.print("loi khong the thuc hien truy van ");
+        }
+         System.out.print("\n Danh sach ");
+        try {
+          
+            while(rs.next())
+            {
+                
+                 
+             
+                tenrap =  rs.getString("TENRAP");
+               
+            
+               
+            }
+        } catch (SQLException ex) {
+            System.out.print("loi khong the khoi tao ");
+            
+        }
+         
+        
+        return tenrap;
+    }
+      
+    
+   
+   public String PhatSinhMaRap() throws SQLException, ClassNotFoundException
+   {
+        sqlcn=new Sqlconnect();
+         //Statement statement = a.createStatement();
+        //ResultSet rs1=statement.executeQuery("select top 1 MaRap from RAP where MaRap = " + );
+      
+      
+      String ma = "";
+     
+        try {
+              a =sqlcn.getSQLServerConnection();
+        
+             
+            
+        } catch (SQLException ex) {
+             System.out.print("khong the ket noi den SQLserver ");
+             
+        }
+        
+            Statement statement = a.createStatement();
+            rs=statement.executeQuery("select top 1 * from RAP order by MaRap desc");
+            while(rs.next())
+            {
+              ma = rs.getString("MARAP");
+            }
+            
+            if(ma == "")
+            {
+                    ma = "R/0" +  1;
+                    return ma;
+            }
+                 
+            
+            String[] split = ma.split("/");
+            String  m = split[1].toString().trim();
+            int n = Integer.parseInt(m);
+            if(n < 9)
+            {
+                n = n + 1;
+                ma = "R/0" +  n;
+                
+            }
+            else
+            {
+                 n = n + 1;
+                ma = "R/" +  n;
+            }
+         return  ma;
+   } 
+   
     public List<RapDTO> laydanhrapphim() throws ClassNotFoundException 
     {
          sqlcn=new Sqlconnect();
@@ -55,18 +205,7 @@ public class RapDAO {
           
             while(rs.next())
             {
-                 
-//               System.out.print("\n");
-//              System.out.print(rs.getInt("MaHS"));
-//              System.out.print("\n");
-//               System.out.print(rs.getString("TenHS"));
-//                System.out.print("\n");
-//              System.out.print(rs.getString("NgaySinh"));
-//                System.out.print("\n");
-//               System.out.print(rs.getString("GhiChu"));
-//                System.out.print("\n");
-//              System.out.print(rs.getInt("Extinfo"));
-//                System.out.print("\n");
+
                   RapDTO rap=new RapDTO();
                rap.setMARAP(rs.getString("MARAP"));
                 rap.setTENRAP(rs.getString("TENRAP"));

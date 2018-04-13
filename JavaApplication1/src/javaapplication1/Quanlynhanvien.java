@@ -6,9 +6,9 @@
 package javaapplication1;
 
 import DAO.PhongChieuDAO;
-import DAO.RapDAO;
+import DAO.NhanVienDAO;
 import DTO.PhongChieuDTO;
-import DTO.RapDTO;
+import DTO.NhanVienDTO;
 import com.jgoodies.validation.ValidationResult;
 import com.jgoodies.validation.util.ValidationUtils;
 import java.sql.SQLException;
@@ -22,12 +22,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author abcd
  */
-public class Quanlyrap extends javax.swing.JFrame {
+public class Quanlynhanvien extends javax.swing.JFrame {
 
     /**
      * Creates new form Quanlyrap
      */
-    public Quanlyrap() {
+    public Quanlynhanvien() {
         initComponents();
         laydanhsachrap();
         
@@ -35,16 +35,16 @@ public class Quanlyrap extends javax.swing.JFrame {
     
     private String PhatSinhMa()
     {
-         RapDAO pcdao=new RapDAO();
+         NhanVienDAO pcdao=new NhanVienDAO();
          
         
         String ma = "";
         try {
-            ma = pcdao.PhatSinhMaRap();
+            ma = pcdao.PhatSinhMANV();
         } catch (SQLException ex) {
-            Logger.getLogger(Quanlyrap.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Quanlynhanvien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Quanlyrap.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Quanlynhanvien.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -69,6 +69,9 @@ public class Quanlyrap extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
+        txtDienThoai = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         grvRapPhim = new javax.swing.JTable();
@@ -82,7 +85,7 @@ public class Quanlyrap extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel1.setText("QUẢN LÝ RẠP");
+        jLabel1.setText("QUẢN LÝ NHÂN VIÊN");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,32 +104,40 @@ public class Quanlyrap extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông Tin Rạp Phim", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 3, 18), new java.awt.Color(0, 102, 255))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông Tin Nhân Viên", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 3, 18), new java.awt.Color(0, 102, 255))); // NOI18N
         jPanel6.setForeground(new java.awt.Color(0, 102, 255));
 
         txtMaRap.setEditable(false);
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel6.setText("Mã rạp");
+        jLabel6.setText("Mã NV");
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel7.setText("Tên rạp");
+        jLabel7.setText("Tên NV");
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setText("Địa Chỉ");
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel10.setText("Điện thoại");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDienThoai)
                     .addComponent(txtTenRap, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                     .addComponent(txtMaRap)
                     .addComponent(txtDiaChi))
@@ -144,24 +155,32 @@ public class Quanlyrap extends javax.swing.JFrame {
                     .addComponent(txtTenRap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(30, 30, 30))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(txtDiaChi, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDiaChi, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(jLabel8))
-                .addGap(20, 20, 20))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(txtDienThoai))
+                .addContainerGap())
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Danh Sách Rạp Phim"), "Danh Sách Rạp Phim", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18), new java.awt.Color(0, 102, 255))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Danh Sách Rạp Phim"), "Danh Sách Nhân Viên", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18), new java.awt.Color(0, 102, 255))); // NOI18N
 
         grvRapPhim.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "MaRap", "TenRap", "DiaChi"
+                "Mã NV", "Tên NV", "Địa Chỉ", "Điện thoại"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -213,34 +232,31 @@ public class Quanlyrap extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(210, 210, 210))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(169, 169, 169))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,10 +277,12 @@ public class Quanlyrap extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 192, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
+
+        jPanel7.getAccessibleContext().setAccessibleName("Danh Sách Nhân Viên");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -278,15 +296,15 @@ public class Quanlyrap extends javax.swing.JFrame {
             // TODO add your handling code here:
 
             
-            RapDTO pc=new RapDTO(); 
+            NhanVienDTO pc=new NhanVienDTO(); 
             String s = PhatSinhMa();
-            pc.setMARAP(PhatSinhMa());
-            pc.setTENRAP(txtTenRap.getText().toString());
+            pc.setMANV(PhatSinhMa());
+            pc.setTENNV(txtTenRap.getText().toString());
             pc.setDIACHI(txtDiaChi.getText().toString());
+             pc.setDIENTHOAI(txtDienThoai.getText().toString());
           
-          
-            RapDAO pcdao=new RapDAO();
-            pcdao.themRap(pc);
+            NhanVienDAO pcdao=new NhanVienDAO();
+            pcdao.themNHANVIEN(pc);
             JOptionPane.showMessageDialog(null, "Lưu thành công ",
                   "Title", JOptionPane.WARNING_MESSAGE);
                
@@ -329,14 +347,14 @@ public class Quanlyrap extends javax.swing.JFrame {
     {
          try {
             xoadanhsachrap();
-            RapDAO pc=new RapDAO();
-            List<RapDTO> list= pc.laydanhrapphim();
+            NhanVienDAO pc=new NhanVienDAO();
+            List<NhanVienDTO> list= pc.laydanhnhanvien();
             
              DefaultTableModel model = (DefaultTableModel) grvRapPhim.getModel();
             
             for(int i=0;i<list.size();i++)
             {
-              model.addRow(new Object[]{list.get(i).getMARAP(),list.get(i).getTENRAP(),list.get(i).getDIACHI()});
+              model.addRow(new Object[]{list.get(i).getMANV(),list.get(i).getTENNV(),list.get(i).getDIACHI(),list.get(i).getDIENTHOAI()});
             }
        
         } catch (ClassNotFoundException ex) {
@@ -349,8 +367,8 @@ public class Quanlyrap extends javax.swing.JFrame {
     {
          try {
             
-            RapDAO pc=new RapDAO();
-            List<RapDTO> list= pc.laydanhrapphim();
+            NhanVienDAO pc=new NhanVienDAO();
+            List<NhanVienDTO> list= pc.laydanhnhanvien();
          
              DefaultTableModel model = (DefaultTableModel) grvRapPhim.getModel();
             
@@ -366,21 +384,21 @@ public class Quanlyrap extends javax.swing.JFrame {
         // TODO add your handling code here:
           try {
             // TODO add your handling code here:
-            RapDTO pc =new RapDTO();
-            RapDAO pcdao=new RapDAO();
-            pc.setMARAP((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 0).toString()));
-            pc.setTENRAP((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 1).toString()));
+            NhanVienDTO pc =new NhanVienDTO();
+            NhanVienDAO pcdao=new NhanVienDAO();
+            pc.setMANV((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 0).toString()));
+            pc.setTENNV((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 1).toString()));
             pc.setDIACHI((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 2).toString()));
-          
+           pc.setDIENTHOAI((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 3).toString()));
              
           
              
-             pc.setMARAP(txtMaRap.getText());
-            pc.setTENRAP(txtTenRap.getText());
+             pc.setMANV(txtMaRap.getText());
+            pc.setTENNV(txtTenRap.getText());
             pc.setDIACHI(txtDiaChi.getText());
-       
+         pc.setDIENTHOAI(txtDienThoai.getText());
            
-            pcdao.capnhatRap(pc);
+            pcdao.capnhatNHANVIEN(pc);
             
             
             laydanhsachrap();
@@ -396,15 +414,16 @@ public class Quanlyrap extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             
-            RapDTO pc =new RapDTO();
-            pc.setMARAP((String)(grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 0)));
+            NhanVienDTO pc =new NhanVienDTO();
+            pc.setMANV((String)(grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 0)));
             
-            RapDAO pcdao=new RapDAO();
-            pcdao.xoaRap(pc);
+            NhanVienDAO pcdao=new NhanVienDAO();
+            pcdao.xoaNHANVIEN(pc);
             laydanhsachrap();
              txtMaRap.setText("");
             txtTenRap.setText("");
             txtDiaChi.setText("");
+              txtDienThoai.setText("");
              JOptionPane.showMessageDialog(null, "xoa thanh cong ",
                   "Title", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException ex) {
@@ -418,6 +437,7 @@ public class Quanlyrap extends javax.swing.JFrame {
         txtMaRap.setText("");
         txtTenRap.setText("");
         txtDiaChi.setText("");
+         txtDienThoai.setText("");
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void grvRapPhimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grvRapPhimMouseClicked
@@ -426,7 +446,7 @@ public class Quanlyrap extends javax.swing.JFrame {
            txtMaRap.setText((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 0).toString()));
             txtTenRap.setText((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 1).toString()));
             txtDiaChi.setText((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 2).toString()));
-            
+             txtDienThoai.setText((grvRapPhim.getValueAt(grvRapPhim.getSelectedRow(), 3).toString()));
     }//GEN-LAST:event_grvRapPhimMouseClicked
 
     /**
@@ -446,21 +466,23 @@ public class Quanlyrap extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Quanlyrap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Quanlynhanvien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Quanlyrap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Quanlynhanvien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Quanlyrap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Quanlynhanvien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Quanlyrap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Quanlynhanvien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Quanlyrap().setVisible(true);
+                new Quanlynhanvien().setVisible(true);
             }
         });
     }
@@ -472,14 +494,17 @@ public class Quanlyrap extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField txtDiaChi;
+    private javax.swing.JTextField txtDienThoai;
     private javax.swing.JTextField txtMaRap;
     private javax.swing.JTextField txtTenRap;
     // End of variables declaration//GEN-END:variables

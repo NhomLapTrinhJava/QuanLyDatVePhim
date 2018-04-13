@@ -22,6 +22,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.validation.ValidationResult;
+import com.jgoodies.validation.util.DefaultValidationResultModel;
+import com.jgoodies.validation.util.ValidationResultModel;
+import com.jgoodies.validation.util.ValidationUtils;
+import com.jgoodies.validation.view.ValidationResultViewFactory;
+import javax.swing.JComponent;
 
 /**
 /**
@@ -40,6 +49,26 @@ public class Quanlyphong extends javax.swing.JFrame {
        laydanhsachphongchieu();
     }
     
+    
+        private String PhatSinhMaPhong()
+    {
+        PhongChieuDAO pcdao=new PhongChieuDAO();
+         
+        
+        String ma = "";
+        try {
+            ma = pcdao.PhatSinhPhongChieu();
+        } catch (SQLException ex) {
+            Logger.getLogger(Quanlyrap.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Quanlyrap.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return ma;
+    }
+        
+        
      public void laydanhsachrapphim()
     {
         try {
@@ -47,7 +76,9 @@ public class Quanlyphong extends javax.swing.JFrame {
             List<RapDTO> list=rap.laydanhrapphim();
             for(int i=0;i<list.size();i++)
             {
-                cboMaRap.addItem(list.get(i).getMARAP());
+                
+               
+                cboMaRap.addItem(list.get(i).getTENRAP());
             }
             
         } catch (ClassNotFoundException ex) {
@@ -66,7 +97,7 @@ public class Quanlyphong extends javax.swing.JFrame {
             
             for(int i=0;i<list.size();i++)
             {
-              model.addRow(new Object[]{list.get(i).getMAPC(),list.get(i).getSoGhe(),list.get(i).getMOTA(),list.get(i).getTinhTrang(),list.get(i).getMARAP()});
+              model.addRow(new Object[]{list.get(i).getMAPC(),list.get(i).getSOHG(),list.get(i).getSODG(),list.get(i).getMOTA(),list.get(i).getTinhTrang(),list.get(i).getMARAP()});
             }
             
         } catch (ClassNotFoundException ex) {
@@ -84,16 +115,30 @@ public class Quanlyphong extends javax.swing.JFrame {
          
              DefaultTableModel model = (DefaultTableModel) grvDanhSachPhong.getModel();
             
-            for(int i=0;i<model.getRowCount();i++)
-            {
-               model.removeRow(i);
-            }
+               model.getDataVector().removeAllElements();
+               model.fireTableDataChanged();
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+     private ValidationResult validateIt() {
+        ValidationResult validationResult = new ValidationResult();
+        
+       
+
+        if (ValidationUtils.isEmpty(txtSoHangGhe.getText())) {
+            validationResult.addError("so ghe  khong duoc de trong");
+        }
+        if(!ValidationUtils.isDigit(txtSoHangGhe.getText()))
+        {
+             validationResult.addError("ghe phai la so ");
+        }
+
+       
+
+        return validationResult;
+    }
     
     
     
@@ -112,13 +157,15 @@ public class Quanlyphong extends javax.swing.JFrame {
         txtMaPhong = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        txtSoGhe = new javax.swing.JTextField();
+        txtSoHangGhe = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         txtMoTa = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         cboMaRap = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         cboTinhTrang = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        txtSoDayGhe = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         grvDanhSachPhong = new javax.swing.JTable();
@@ -153,11 +200,13 @@ public class Quanlyphong extends javax.swing.JFrame {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông Tin Phòng Chiếu", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 3, 18), new java.awt.Color(0, 102, 255))); // NOI18N
 
+        txtMaPhong.setEditable(false);
+
         jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel15.setText("Mã Phòng");
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel16.setText("Số Ghế");
+        jLabel16.setText("Số Hàng Ghế");
 
         jLabel17.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel17.setText("Mô Tả");
@@ -166,9 +215,12 @@ public class Quanlyphong extends javax.swing.JFrame {
         jLabel18.setText("Tình Trạng");
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel19.setText("Mã Rạp");
+        jLabel19.setText("Tên Rạp");
 
         cboTinhTrang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoạt Động", "Không Hoạt Động" }));
+
+        jLabel20.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel20.setText("Số Dãy Ghế");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -176,27 +228,31 @@ public class Quanlyphong extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel10Layout.createSequentialGroup()
+                            .addGap(9, 9, 9)
+                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)))
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel18)))
-                        .addGap(5, 5, 5))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addGap(18, 18, 18)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel17)))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel20)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cboMaRap, 0, 260, Short.MAX_VALUE)
                     .addComponent(txtMoTa)
                     .addComponent(cboTinhTrang, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtMaPhong)
-                    .addComponent(txtSoGhe))
+                    .addComponent(txtSoHangGhe)
+                    .addComponent(txtSoDayGhe, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -208,9 +264,13 @@ public class Quanlyphong extends javax.swing.JFrame {
                     .addComponent(jLabel15))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSoGhe, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSoHangGhe, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(txtSoDayGhe, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
@@ -222,7 +282,7 @@ public class Quanlyphong extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboMaRap, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Phòng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 3, 18), new java.awt.Color(0, 102, 255))); // NOI18N
@@ -232,11 +292,11 @@ public class Quanlyphong extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã Phòng", "Số Ghế", "Mô Tả", "Tình Trạng", "Mã Rạp"
+                "Mã Phòng", "Số Hàng Ghế", "Số Dãy Ghế", "Mô Tả", "Tình Trạng", "Tên Rạp"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -295,15 +355,15 @@ public class Quanlyphong extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(36, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(14, 14, 14)
                         .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -313,14 +373,13 @@ public class Quanlyphong extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -342,18 +401,22 @@ public class Quanlyphong extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-         try {
+        
+        ValidationResult validationResult=validateIt();
+        if(validationResult.isEmpty())
+        {
+             try {
             // TODO add your handling code here:
 
             
@@ -361,9 +424,10 @@ public class Quanlyphong extends javax.swing.JFrame {
             pc.setMAPC(txtMaPhong.getText().toString());
             pc.setMARAP(cboMaRap.getSelectedItem().toString());
             pc.setMOTA(txtMoTa.getText().toString());
-            pc.setSoGhe(Integer.parseInt(txtSoGhe.getText().toString()) );
+            pc.setSODG(Integer.parseInt(txtSoDayGhe.getText().toString()) );
+            pc.setSOHG(Integer.parseInt(txtSoHangGhe.getText().toString()) );
             pc.setTINHTRANG(cboTinhTrang.getSelectedItem().toString());
-          
+            
             PhongChieuDAO pcdao=new PhongChieuDAO();
             pcdao.themPhongChieu(pc);
             JOptionPane.showMessageDialog(null, "Lưu thành công ",
@@ -372,13 +436,19 @@ public class Quanlyphong extends javax.swing.JFrame {
              
           
               laydanhsachphongchieu();
-             
+             grvDanhSachPhong.updateUI();
                
             
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "thêm thất bại đã có lỗi xảy ra ",
                   "Title", JOptionPane.WARNING_MESSAGE);
             Logger.getLogger(Quanlyphim.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+       else
+        {
+             JOptionPane.showMessageDialog(null,validationResult.getMessagesText()
+                  );
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -390,22 +460,25 @@ public class Quanlyphong extends javax.swing.JFrame {
             PhongChieuDTO pc =new PhongChieuDTO();
             PhongChieuDAO pcdao=new PhongChieuDAO();
             pc.setMAPC((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 0).toString()));
-            pc.setSoGhe(Integer.parseInt(grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 1).toString()));
-            pc.setMOTA((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 2).toString()));
-            pc.setTINHTRANG((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 3).toString()));
-            pc.setMARAP((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 4).toString()));
+            pc.setSODG(Integer.parseInt(grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 1).toString()));
+            pc.setSOHG(Integer.parseInt(grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 2).toString()));
+            pc.setMOTA((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 3).toString()));
+            pc.setTINHTRANG((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 4).toString()));
+            pc.setMARAP((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 5).toString()));
+           
              
           
              
              pc.setMAPC(txtMaPhong.getText());
             pc.setMARAP(cboMaRap.getSelectedItem().toString());
             pc.setMOTA(txtMoTa.getText());
-            pc.setSoGhe(Integer.parseInt(txtSoGhe.getText()));
+            pc.setSODG(Integer.parseInt(txtSoDayGhe.getText()));
+             pc.setSOHG(Integer.parseInt(txtSoHangGhe.getText()));
             pc.setTINHTRANG(cboTinhTrang.getSelectedItem().toString());
            
             pcdao.capnhatPhongChieu(pc);
             laydanhsachphongchieu();
-            
+            grvDanhSachPhong.updateUI();
               JOptionPane.showMessageDialog(null, "cap nhat thanh cong ",
                   "Title", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException ex) {
@@ -425,6 +498,7 @@ public class Quanlyphong extends javax.swing.JFrame {
             PhongChieuDAO pcdao=new PhongChieuDAO();
             pcdao.xoaPhongChieu(pc);
             laydanhsachphongchieu();
+            grvDanhSachPhong.updateUI();
              JOptionPane.showMessageDialog(null, "xoa thanh cong ",
                   "Title", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException ex) {
@@ -441,17 +515,20 @@ public class Quanlyphong extends javax.swing.JFrame {
         // TODO add your handling code here:
        
           txtMaPhong.setText((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 0).toString()));
-            txtSoGhe.setText((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 1).toString()));
-            txtMoTa.setText((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 2).toString()));
-            cboTinhTrang.setSelectedItem((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 3).toString()));
-            cboMaRap.setSelectedItem((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 4).toString()));
+            txtSoHangGhe.setText((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 1).toString()));
+              txtSoDayGhe.setText((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 2).toString()));
+            txtMoTa.setText((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 3).toString()));
+            cboTinhTrang.setSelectedItem((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 4).toString()));
+            cboMaRap.setSelectedItem((grvDanhSachPhong.getValueAt(grvDanhSachPhong.getSelectedRow(), 5).toString()));
+            
     }//GEN-LAST:event_grvDanhSachPhongMouseClicked
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         // TODO add your handling code here:
         txtMaPhong.setText("");
         txtMoTa.setText("");
-        txtSoGhe.setText("");
+        txtSoHangGhe.setText("");
+        txtSoDayGhe.setText("");
          laydanhsachrapphim();
        laydanhsachphongchieu();
     }//GEN-LAST:event_btnMoiActionPerformed
@@ -482,6 +559,7 @@ public class Quanlyphong extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Quanlyphong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -505,12 +583,14 @@ public class Quanlyphong extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtMaPhong;
     private javax.swing.JTextField txtMoTa;
-    private javax.swing.JTextField txtSoGhe;
+    private javax.swing.JTextField txtSoDayGhe;
+    private javax.swing.JTextField txtSoHangGhe;
     // End of variables declaration//GEN-END:variables
 }
